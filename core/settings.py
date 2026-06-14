@@ -14,8 +14,11 @@ SECRET_KEY = 'django-insecure-0+--7+xllc_ge)evtgvbih%4nqp0ap(62ue@hc_(hapmzn&fzj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'equipamentoslab.pythonanywhere.com',
+    'localhost',
+    '127.0.0.1'
+]
 
 # Application definition
 
@@ -108,6 +111,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static/",
 ]
+STATIC_ROOT = '/home/equipamentoslab/equipamentos_lab/static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
