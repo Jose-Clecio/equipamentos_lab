@@ -1,0 +1,308 @@
+/* =========================================================
+   Laboratório de Equipamentos — Folha de estilo única
+   Design moderno em tema escuro.
+   Status: ATIVO (verde) | MANUTENCAO (amarelo) | INATIVO (vermelho)
+   ========================================================= */
+
+/* ---------- Tokens / Variáveis ---------- */
+
+:root {
+  --bg: #0f1115;
+  --surface: #171a21;
+  --surface-2: #1e222b;
+  --border: #2a2f3a;
+  --text: #e6e8ec;
+  --text-muted: #9aa1ad;
+  --brand: #3b82f6;
+  --brand-strong: #2563eb;
+
+  --ativo: #22c55e;
+  --ativo-bg: rgba(34, 197, 94, 0.12);
+  --manutencao: #eab308;
+  --manutencao-bg: rgba(234, 179, 8, 0.12);
+  --inativo: #ef4444;
+  --inativo-bg: rgba(239, 68, 68, 0.12);
+
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Reset básico ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(900px 500px at 100% -10%, rgba(59, 130, 246, 0.12), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Cabeçalho ---------- */
+header {
+  position: relative;
+  padding: 28px 24px;
+  background: linear-gradient(180deg, var(--surface), var(--bg));
+  border-bottom: 1px solid var(--border);
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--brand), var(--brand-strong));
+}
+
+header h1 {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- Conteúdo principal ---------- */
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+main > section:first-of-type p,
+main > section:first-of-type h2 {
+  display: inline-block;
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  margin: 24px 0;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* ---------- Tabela de equipamentos ---------- */
+section {
+  margin-bottom: 28px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  font-size: 0.92rem;
+}
+
+thead,
+table tr:first-child {
+  background: var(--surface-2);
+}
+
+th {
+  text-align: left;
+  padding: 16px 18px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr.clickable {
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+tr.clickable:hover {
+  background: var(--surface-2);
+}
+
+/* Links de certificado */
+td a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--brand-bg, rgba(59, 130, 246, 0.12));
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 8px;
+  color: #93c5fd;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.82rem;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+td a:hover {
+  background: var(--brand-strong);
+  color: #fff;
+}
+
+/* ---------- Status (seletor por id do <td>) ---------- */
+td[id="ATIVO"],
+td[id="MANUT"],
+td[id="INATIVO"] {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+/* "Pílula" de status reutilizável via pseudo-conteúdo do texto interno */
+td[id="ATIVO"],
+td[id="MANUT"],
+td[id="INATIVO"] {
+  position: relative;
+  white-space: nowrap;
+}
+
+td[id="ATIVO"] {
+  color: var(--ativo);
+}
+td[id="MANUT"] {
+  color: var(--manutencao);
+}
+td[id="INATIVO"] {
+  color: var(--inativo);
+}
+
+/* Bolinha indicadora antes do texto de status */
+td[id="ATIVO"]::before,
+td[id="MANUT"]::before,
+td[id="INATIVO"]::before {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 8px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+td[id="ATIVO"]::before {
+  background: var(--ativo);
+  box-shadow: 0 0 0 3px var(--ativo-bg);
+}
+td[id="MANUT"]::before {
+  background: var(--manutencao);
+  box-shadow: 0 0 0 3px var(--manutencao-bg);
+}
+td[id="INATIVO"]::before {
+  background: var(--inativo);
+  box-shadow: 0 0 0 3px var(--inativo-bg);
+}
+
+/* ---------- Página de características ---------- */
+main > section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+section:has(.card-caracteristica) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.card-caracteristica {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.card-caracteristica:hover {
+  transform: translateY(-3px);
+  border-color: var(--brand);
+}
+
+.card-caracteristica h3 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.card-caracteristica h3 p {
+  margin-top: 10px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text);
+}
+
+/* ---------- Rodapé ---------- */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  background: var(--surface);
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 768px) {
+  main {
+    padding: 20px 14px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    padding: 12px 14px;
+  }
+}

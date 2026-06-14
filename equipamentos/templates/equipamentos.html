@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+    {% block content %}
+        <section>
+            <table>
+                <tr>
+                    <th>Equipamento</th>
+                    <th>Fabricante</th>
+                    <th>Modelo</th>
+                    <th>Patrimônio</th>
+                    <th>Data De Calibração</th>
+                    <th>Validade</th>
+                    <th>Local</th>
+                    <th>Status</th>
+                    <th>Certificado</th>
+                </tr>
+                {% for equipamento in equipamentos %}
+                    <tr class="clickable" onclick="window.location='{% url 'caracteristicas' id=equipamento.id %}'" style="cursor: pointer;">
+                        <td>{{equipamento.nome}}</td>
+                        <td>{{equipamento.fabricante}}</td>
+                        <td>{{equipamento.modelo}}</td>
+                        <td>{{equipamento.patrimonio}}</td>
+                        {% with certificado=equipamento.certificado_set.first %}
+                            <td>
+                                {% if certificado %}
+                                    {{certificado.data_calibracao}}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if certificado %}
+                                    {{certificado.validade}}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        {% endwith %}
+                        <td>
+                            {{equipamento.local}}
+                        </td>
+                        <td id="{{equipamento.status}}">
+                            {{equipamento.get_status_display}}
+                        </td>
+                        {% with certificado=equipamento.certificado_set.first %}
+                            <td>
+                                {% if certificado %}
+                                    <a href="{{certificado.arquivo.url}}" target="_blank" onclick="event.stopPropagation();">Certificado</a>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        {% endwith %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </section>
+    {% endblock %}

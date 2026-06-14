@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <h2>Características</h2>
+{% endblock %}
+{% block content %}
+    <section>
+        <h2>{{equipamento.nome}}</h2>
+    </section>
+    <section>
+        {% for caracteristica in caracteristicas %}
+            <div class="card-caracteristica">
+                <h3>{{caracteristica.nome}}
+                    <p>{{caracteristica.valor}}</p>
+                </h3>
+            </div>
+        {% endfor %}
+    </section>
+{% endblock %}
