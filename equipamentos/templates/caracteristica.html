@@ -10,10 +10,17 @@
     <section>
         {% for caracteristica in caracteristicas %}
             <div class="card-caracteristica">
-                <h3>{{caracteristica.nome}}
-                    <p>{{caracteristica.valor}}</p>
-                </h3>
+                <h3>{{caracteristica.nome}}</h3>
+                <p>{{caracteristica.valor}}</p>
             </div>
         {% endfor %}
     </section>
+    {% if equipamento.obs %}
+        <section>
+            <div class="card-observacoes card-caracteristica">
+                 <h3>Observações:</h3>
+                <p>{{equipamento.obs}}</p>
+            </div>
+        </section>
+    {% endif %}
 {% endblock %}

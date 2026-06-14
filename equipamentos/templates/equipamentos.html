@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+
+    {% block title %}
+        <h2 id="OBRA_URUACU" class="{% if obra == 'OBRA_URUACU' %}active{% endif %}"><a href="{% url 'equipamentos' obra='OBRA_URUACU' %}">OBRA BR 153 - URUAÇU - GO</a></h2>
+        <h2 id="OBRA_RIALMA" class="{% if obra == 'OBRA_RIALMA' %}active{% endif %}"><a href="{% url 'equipamentos' obra='OBRA_RIALMA' %}">OBRA BR 153 - RIALAMA - GO</a></h2>
+    {% endblock %}
     {% block content %}
         <section>
             <table>
@@ -14,7 +19,14 @@
                     <th>Certificado</th>
                 </tr>
                 {% for equipamento in equipamentos %}
-                    <tr class="clickable" onclick="window.location='{% url 'caracteristicas' id=equipamento.id %}'" style="cursor: pointer;">
+                    {% with caracteristica=equipamento.caracteristica_set.first %}
+                        {% if caracteristica %}
+                            <tr class="clickable" onclick="window.location='{% url 'caracteristicas' obra=equipamento.obra id=equipamento.id %}'" style="cursor: pointer;">
+                        {% else %}
+                                <tr>
+                        {% endif %}
+                    {% endwith %}
+                    
                         <td>{{equipamento.nome}}</td>
                         <td>{{equipamento.fabricante}}</td>
                         <td>{{equipamento.modelo}}</td>
@@ -22,14 +34,14 @@
                         {% with certificado=equipamento.certificado_set.first %}
                             <td>
                                 {% if certificado %}
-                                    {{certificado.data_calibracao}}
+                                    {{certificado.data_calibracao|date:"d-m-Y"}}
                                 {% else %}
                                     -
                                 {% endif %}
                             </td>
                             <td>
                                 {% if certificado %}
-                                    {{certificado.validade}}
+                                    {{certificado.validade|date:"d-m-Y"}}
                                 {% else %}
                                     -
                                 {% endif %}

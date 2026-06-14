@@ -86,18 +86,67 @@ main {
   padding: 32px 24px;
 }
 
-main > section:first-of-type p,
+/* ---------- Seletor de obras (botões/abas) ---------- */
 main > section:first-of-type h2 {
   display: inline-block;
-  padding: 8px 16px;
+  margin: 0 8px 8px 0;
+  font-size: 0;          /* remove espaço entre inline-blocks; o texto vem do link */
+}
+
+main > section:first-of-type h2 a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 999px;
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+}
+
+/* Bolinha indicadora à esquerda do nome da obra */
+main > section:first-of-type h2 a::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Hover de qualquer botão não ativo */
+main > section:first-of-type h2 a:hover {
+  color: var(--text);
+  border-color: var(--brand);
+  transform: translateY(-1px);
+}
+
+/* Estado ATIVO: marque o <h2> com class="active" no Django */
+main > section:first-of-type h2.active a {
+  background: var(--brand);
+  border-color: var(--brand-strong);
+  color: #fff;
+}
+
+main > section:first-of-type h2.active a::before {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+/* Quando uma obra está ativa, as demais ficam apagadas (inativas) */
+main > section:first-of-type:has(h2.active) h2:not(.active) a {
+  opacity: 0.5;
+}
+
+main > section:first-of-type:has(h2.active) h2:not(.active) a:hover {
+  opacity: 1;
 }
 
 hr {
@@ -247,7 +296,11 @@ section:has(.card-caracteristica) {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 16px;
 }
-
+section:has(.card-observacoes) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 100%));
+  gap: 16px;
+}
 .card-caracteristica {
   background: var(--surface);
   border: 1px solid var(--border);
