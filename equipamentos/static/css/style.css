@@ -87,13 +87,24 @@ main {
 }
 
 /* ---------- Seletor de obras (botões/abas) ---------- */
-main > section:first-of-type h2 {
+.obra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.obra h2 {
+  margin: 0;
+  font-size: 0;          /* o texto vem do link interno */
+}
+
+main > section h2 {
   display: inline-block;
   margin: 0 8px 8px 0;
   font-size: 0;          /* remove espaço entre inline-blocks; o texto vem do link */
 }
-
-main > section:first-of-type h2 a {
+.obra h2 a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -111,8 +122,25 @@ main > section:first-of-type h2 a {
     border-color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
 }
 
+main > section h2.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+}
 /* Bolinha indicadora à esquerda do nome da obra */
-main > section:first-of-type h2 a::before {
+.obra h2 a::before {
   content: "";
   width: 8px;
   height: 8px;
@@ -122,33 +150,125 @@ main > section:first-of-type h2 a::before {
 }
 
 /* Hover de qualquer botão não ativo */
-main > section:first-of-type h2 a:hover {
+.obra h2 a:hover {
   color: var(--text);
   border-color: var(--brand);
   transform: translateY(-1px);
 }
 
 /* Estado ATIVO: marque o <h2> com class="active" no Django */
-main > section:first-of-type h2.active a {
+.obra h2.active a {
   background: var(--brand);
   border-color: var(--brand-strong);
   color: #fff;
 }
 
-main > section:first-of-type h2.active a::before {
+.obra h2.active a::before {
   background: #fff;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
 /* Quando uma obra está ativa, as demais ficam apagadas (inativas) */
-main > section:first-of-type:has(h2.active) h2:not(.active) a {
+.obra:has(h2.active) h2:not(.active) a {
   opacity: 0.5;
 }
 
-main > section:first-of-type:has(h2.active) h2:not(.active) a:hover {
+.obra:has(h2.active) h2:not(.active) a:hover {
   opacity: 1;
 }
+/* ---------- Filtro / busca de equipamentos ---------- */
+.filtro {
+  margin-bottom: 24px;
+}
 
+.filtro form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.filtro input[type="text"] {
+  flex: 1 1 240px;
+  min-width: 200px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.filtro input[type="text"]::placeholder {
+  color: var(--text-muted);
+}
+
+.filtro input[type="text"]:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Cada checkbox vira uma pílula clicável */
+.filtro .checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.18s ease, color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.filtro .checkbox:hover {
+  border-color: var(--brand);
+  color: var(--text);
+}
+
+.filtro .checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+
+/* Realça a pílula quando o checkbox está marcado */
+.filtro .checkbox:has(input:checked) {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: var(--brand);
+  color: var(--text);
+}
+
+.filtro button[type="submit"] {
+  padding: 10px 22px;
+  background: var(--brand);
+  border: 1px solid var(--brand-strong);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.filtro button[type="submit"]:hover {
+  background: var(--brand-strong);
+  transform: translateY(-1px);
+}
 hr {
   border: none;
   height: 1px;

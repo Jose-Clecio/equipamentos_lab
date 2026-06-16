@@ -1,8 +1,28 @@
 {% extends 'base.html' %}
 
     {% block title %}
-        <h2 id="OBRA_URUACU" class="{% if obra == 'OBRA_URUACU' %}active{% endif %}"><a href="{% url 'equipamentos' obra='OBRA_URUACU' %}">OBRA BR 153 - URUAÇU - GO</a></h2>
-        <h2 id="OBRA_RIALMA" class="{% if obra == 'OBRA_RIALMA' %}active{% endif %}"><a href="{% url 'equipamentos' obra='OBRA_RIALMA' %}">OBRA BR 153 - RIALAMA - GO</a></h2>
+        <div class="obra">
+            <h2 id="OBRA_URUACU" class="{% if obra == 'OBRA_URUACU' %}active{% endif %}"><a href="{% url 'equipamentos' obra='OBRA_URUACU' %}">OBRA BR 153 - URUAÇU - GO</a></h2>
+            <h2 id="OBRA_RIALMA" class="{% if obra == 'OBRA_RIALMA' %}active{% endif %}"><a href="{% url 'equipamentos' obra='OBRA_RIALMA' %}">OBRA BR 153 - RIALAMA - GO</a></h2>
+        </div>
+        <div class="filtro">
+            <form method="get">
+                <input type="text" name="nome" placeholder="Pesquisar equipamento" value="{{nome}}">
+                <label class="checkbox">
+                     <input type="checkbox" name="status" value="ATIVO" {% if 'ATIVO' in statuses %}checked{% endif %}>
+                     Ativo
+                </label>
+                <label class="checkbox">
+                     <input type="checkbox" name="status" value="MANUT" {% if 'MANUT' in statuses %}checked{% endif %}>
+                     Em manutenção
+                </label>
+                <label class="checkbox">
+                     <input type="checkbox" name="status" value="INATIVO" {% if 'INATIVO' in statuses %}checked{% endif %}>
+                     Inativo
+                </label>
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
     {% endblock %}
     {% block content %}
         <section>

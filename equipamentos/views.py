@@ -5,9 +5,14 @@ def home(request):
     return redirect('equipamentos', obra='OBRA_URUACU')
 
 def equipamentos(request, obra):
+    statuses = request.GET.getlist('status')
+    nome = request.GET.get('nome', '')
     equipamentos = Equipamento.objects.prefetch_related('certificado_set', 'caracteristica_set').filter(obra=obra)
-    obra_ = obra
-    return render(request, 'equipamentos.html', {'equipamentos': equipamentos, 'obra':obra_})
+    if statuses:
+        equipamentos = equipamentos.filter(status__in=statuses)
+    if nome:
+        equipamentos = equipamentos.filter(nome__icontains=nome)
+    return render(request, 'equipamentos.html', {'equipamentos': equipamentos, 'obra':obra, 'statuses':statuses, 'nome':nome})
 
 def caracteristica(request, obra, id):
     equip = Equipamento.objects.get(id=id)
