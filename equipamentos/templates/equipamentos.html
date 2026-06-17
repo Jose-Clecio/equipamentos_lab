@@ -73,7 +73,7 @@
                             </td>
                         {% endwith %}
                         <td>
-                            {{equipamento.local}}
+                            {{equipamento.get_local_display}}
                         </td>
                         <td id="{{equipamento.status}}">
                             {{equipamento.get_status_display}}
