@@ -9,6 +9,9 @@ class Equipamento(models.Model):
     class Obra(models.TextChoices):
         OBRA_URUACU = 'OBRA_URUACU', 'OBRA BR 153 - URUAÇU - GO'
         OBRA_RIALMA = 'OBRA_RIALMA', 'OBRA BR 153 - RIALMA - GO'
+    class Local(models.TextChoices):
+        SOLO = 'SOLO', 'Laboraório De Solo'
+        ASFALTO = 'ASFALTO', 'Laboratório De Asfalto'
 
     nome = models.CharField(max_length=100)
     tipo = models.CharField(max_length=100)
@@ -16,7 +19,7 @@ class Equipamento(models.Model):
     modelo = models.CharField(max_length=100, blank=True, null=True)
     serie = models.CharField(max_length=100)
     patrimonio = models.CharField(max_length=100)
-    local = models.CharField()
+    local = models.CharField(choices=Local.choices, default='')
     status = models.CharField(choices=Status.choices, default=Status.ATIVO)
     obra = models.CharField(choices=Obra.choices, default=Obra.OBRA_URUACU)
     obs = models.TextField(blank=True, null=True)
