@@ -16,6 +16,7 @@ def equipamentos(request, obra):
         equipamentos = equipamentos.filter(nome__icontains=nome)
     if local:
         equipamentos = equipamentos.filter(local__icontains=local)
+    
     return render(request, 'equipamentos.html', {'equipamentos': equipamentos, 'obra':obra, 'statuses':statuses, 'nome':nome, 'local': local})
 
 def caracteristica(request, obra, id):

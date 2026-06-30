@@ -3,9 +3,9 @@ from .models import Equipamento, Certificado, Caracteristica
 
 # Register your models here.
 class Equipamentos(admin.ModelAdmin):
-    list_display = ['nome', 'fabricante', 'modelo', 'patrimonio', 'status']
+    list_display = ['nome', 'fabricante', 'modelo', 'patrimonio', 'status', 'local']
     search_fields = ['nome']
-    list_filter = ['patrimonio', 'status']
+    list_filter = ['status', 'local']
 class Certificados(admin.ModelAdmin):
     list_display = ['equipamento', 'arquivo', 'data_calibracao', 'validade']
     search_fields = ['equipamento']
@@ -13,7 +13,7 @@ class Certificados(admin.ModelAdmin):
 class Caracteristicas(admin.ModelAdmin):
     list_display = ['equipamento', 'nome', 'valor']
     search_fields = ['equipamento']
-    list_filter = ['nome', 'valor']
+    list_filter = ['nome']
 admin.site.register(Equipamento, Equipamentos)
 admin.site.register(Certificado, Certificados)
 admin.site.register(Caracteristica, Caracteristicas)
